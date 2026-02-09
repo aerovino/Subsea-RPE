@@ -50,7 +50,6 @@ with col1:
     E_IP = st.number_input("Inner Pipe Young's Modulus, E_IP (GPa)", value=200.0, min_value=0.0, step=0.1, format="%.2f")
     nu_IP = st.number_input("Inner Pipe Poisson Ratio, nu_IP (-)", value=0.3, min_value=0.0, step=0.1, format="%.2f")
     a_IP = st.number_input("Inner Pipe Thermal Expansion Coefficient, a_IP (10^-5/°C)", value=1.100, min_value=0.0, step=.001, format="%.3f")
-    
 with col2:
     st.header("Outer Pipe")
     E_OP = st.number_input("Outer Pipe Young's Modulus, E_OP (GPa)", value=207.0, min_value=0.0, step=0.1, format="%.2f")
@@ -63,18 +62,46 @@ with col1:
     SD_IP = st.number_input("Inner Pipe Steel Density, SD_IP (kg/m³)", value=7850.0, min_value=0.0, step=1.0, format="%.2f")
     CD_IP = st.number_input("Inner Pipe Content Density, CD_IP (kg/m³)", value=835.0, min_value=0.0, step=1.0, format="%.2f")
     ID = st.number_input("Insulation Density, ID (kg/m³)", value=160.0, min_value=0.0, step=1.0, format="%.2f")
-   
 with col2:
     SD_OP = st.number_input("Outer Pipe Steel Density, SD_OP (kg/m³)", value=7850.0, min_value=0.0, step=1.0, format="%.2f")
     SWD = st.number_input("Sea Water Density, SWD (kg/m³)", value=1025.0, min_value=0.0, step=1.0, format="%.2f")
     CD = st.number_input("Centraliser Density, CD (kg/m³)", value=0.0, min_value=0.0, step=1.0, format="%.2f")
+    D_corr = st.number_input("Anti-Corrosion Coating Density, D_corr (kg/m³)", value=985.0, min_value=0.0, step=1.0, format="%.2f")
+
+# Mass and Weight Calculation
+m_steel_IP = A_in * SD_IP / 1e6   
+m_steel_OP = A_out * SD_OP / 1e6
+m_steel_total = m_steel_IP + m_steel_OP
+m_ins = A_ins * ID / 1e6
+m_corr = A_corr * D_corr / 1e6
+m_centraliser = math.pi / 4 *  ( (OD_IP + 2 * CT )**2 - (OD_IP )**2 ) * CL / CS * CD / 1e6
+m_IPC_oper = (A_fluid * CD_IP) / 1e6
+m_IPC_SW = (A_fluid * SWD) / 1e6
+m_buoyant = math.pi / 4 * OD_overall**2 * SWD / 1e6
+m_sub_empty = m_steel_total + m_ins + m_corr + m_centraliser - m_buoyant
+m_sub_oper = m_sub_empty + m_IPC_oper
+m_sub_SW = m_sub_empty + m_IPC_SW
+w_sub_empty = m_sub_empty * 9.81
+w_sub_oper = m_sub_oper * 9.81
+w_sub_SW = m_sub_SW * 9.81
+st.write(f"**Inner Pipe Steel Mass per Unit Length, m_steel_IP (kg  / m):** {m_steel_IP:.6f}")
+st.write(f"**Outer Pipe Steel Mass per Unit Length, m_steel_OP (kg  / m):** {m_steel_OP:.6f}")
+st.write(f"**Total Steel Mass per Unit Length, m_steel_total (kg  / m):** {m_steel_total:.6f}")
+st.write(f"**Insulation Mass per Unit Length, m_ins (kg  / m):** {m_ins:.6f}")
+st.write(f"**Anti-Corrosion Coating Mass per Unit Length, m_corr (kg  / m):** {m_corr:.6f}")
+st.write(f"**Centraliser Mass per Unit Length, m_centraliser (kg  / m):** {m_centraliser:.6f}")
+st.write(f"**Inner Pipe Content Mass per Unit Length- Operation, m_IPC_oper (kg  / m):** {m_IPC_oper:.6f}")
+st.write(f"**Inner Pipe Content Mass per Unit Length- Sea Water, m_IPC_SW (kg  / m):** {m_IPC_SW:.6f}")
+st.write(f"**Buoyant Mass per Unit Length, m_buoyant (kg  / m):** {m_buoyant:.6f}")
+st.write(f"**Submerged Weight per Unit Length- Empty, w_sub_empty (N / m):** {w_sub_empty:.6f}")
+st.write(f"**Submerged Weight per Unit Length- Operation, w_sub_oper (N / m):** {w_sub_oper:.6f}")
+st.write(f"**Submerged Weight per Unit Length- Sea Water, w_sub_SW (N / m):** {w_sub_SW:.6f}")
 
 st.title("Temperature")
 col1, col2 = st.columns(2)
 with col1:
     T_IP = st.number_input("Inner Pipe Temperature, T_IP (°C)", value=112.0, min_value=0.0, step=0.1, format="%.2f")
     Ta_min = st.number_input("Minimum Ambient Temperature, Ta_min (°C)", value=4.0, min_value=0.0, step=0.1, format="%.2f")
-   
 with col2:
     T_OP = st.number_input("Outer Pipe Temperature, T_OP (°C)", value=47.5, min_value=0.0, step=0.1, format="%.2f")
     Ta_max = st.number_input("Maximum Ambient Temperature, Ta_max (°C)", value=10.0, min_value=0.0, step=0.1, format="%.2f")
@@ -86,7 +113,6 @@ with col1:
     P_IP_oper = st.number_input("Inner Pipe Pressure- Operation, P_IP_oper (MPa)", value=32.5, min_value=0.0, step=0.1, format="%.2f")
     P_IP_st = st.number_input("Inner Pipe Pressure- System Test, P_IP_st (MPa)", value=37.38, min_value=0.0, step=0.1, format="%.2f")
     P_OP_ap = st.number_input("Outer Pipe Annulus Pressure, P_OP_ap (MPa)", value=0.0, min_value=0.0, step=0.1, format="%.2f")
-   
 with col2:
     h_ref = st.number_input("Reference Elevation, h_ref (m)", value=40.0, min_value=0.0, step=0.1, format="%.2f")
     H_in = st.number_input("Inner Pipe Residual Tension, H_in (kN)", value=0.0, min_value=0.0, step=0.1, format="%.2f")
@@ -98,9 +124,7 @@ with col1:
     E_eq = st.number_input("Equivalent Young's Modulus, E_eq (GPa)", value=207.0, min_value=0.0, step=0.1, format="%.2f")
     nu_eq = st.number_input("Equivalent Poisson Ratio, nu_eq (-)", value=0.3, min_value=0.0, step=0.1, format="%.2f")
     a_eq = st.number_input("Equivalent Thermal Expansion Coefficient, a_eq (10^-5/°C)", value=1.170, min_value=0.0, step=.001, format="%.3f")
-   
 with col2:
     H_eq = st.number_input("Equivalent Residual Tension, H_eq (kN)", value=0.0, min_value=0.0, step=0.1, format="%.2f")
     P_eq_oper = st.number_input("Equivalent Pressure- Operation, P_eq_oper (MPa)", value=28.9, min_value=0.0, step=0.1, format="%.2f")
     P_eq_st = st.number_input("Equivalent Pressure- System Test, P_eq_st (MPa)", value=33.24, min_value=0.0, step=0.1, format="%.2f")
-

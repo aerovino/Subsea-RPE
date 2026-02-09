@@ -62,6 +62,7 @@ with col1:
     SD_IP = st.number_input("Inner Pipe Steel Density, SD_IP (kg/m³)", value=7850.0, min_value=0.0, step=1.0, format="%.2f")
     CD_IP = st.number_input("Inner Pipe Content Density, CD_IP (kg/m³)", value=835.0, min_value=0.0, step=1.0, format="%.2f")
     ID = st.number_input("Insulation Density, ID (kg/m³)", value=160.0, min_value=0.0, step=1.0, format="%.2f")
+    PIP_BS-method = st.selectbox("PIP Bending Stiffness Method", ("Sum", "Carrier"), index=0)
 with col2:
     SD_OP = st.number_input("Outer Pipe Steel Density, SD_OP (kg/m³)", value=7850.0, min_value=0.0, step=1.0, format="%.2f")
     SWD = st.number_input("Sea Water Density, SWD (kg/m³)", value=1025.0, min_value=0.0, step=1.0, format="%.2f")
@@ -84,18 +85,38 @@ m_sub_SW = m_sub_empty + m_IPC_SW
 w_sub_empty = m_sub_empty * 9.81
 w_sub_oper = m_sub_oper * 9.81
 w_sub_SW = m_sub_SW * 9.81
-st.write(f"**Inner Pipe Steel Mass per Unit Length, m_steel_IP (kg  / m):** {m_steel_IP:.6f}")
-st.write(f"**Outer Pipe Steel Mass per Unit Length, m_steel_OP (kg  / m):** {m_steel_OP:.6f}")
-st.write(f"**Total Steel Mass per Unit Length, m_steel_total (kg  / m):** {m_steel_total:.6f}")
-st.write(f"**Insulation Mass per Unit Length, m_ins (kg  / m):** {m_ins:.6f}")
-st.write(f"**Anti-Corrosion Coating Mass per Unit Length, m_corr (kg  / m):** {m_corr:.6f}")
-st.write(f"**Centraliser Mass per Unit Length, m_centraliser (kg  / m):** {m_centraliser:.6f}")
-st.write(f"**Inner Pipe Content Mass per Unit Length- Operation, m_IPC_oper (kg  / m):** {m_IPC_oper:.6f}")
-st.write(f"**Inner Pipe Content Mass per Unit Length- Sea Water, m_IPC_SW (kg  / m):** {m_IPC_SW:.6f}")
-st.write(f"**Buoyant Mass per Unit Length, m_buoyant (kg  / m):** {m_buoyant:.6f}")
-st.write(f"**Submerged Weight per Unit Length- Empty, w_sub_empty (N / m):** {w_sub_empty:.6f}")
-st.write(f"**Submerged Weight per Unit Length- Operation, w_sub_oper (N / m):** {w_sub_oper:.6f}")
-st.write(f"**Submerged Weight per Unit Length- Sea Water, w_sub_SW (N / m):** {w_sub_SW:.6f}")
+st.write(f"**Inner Pipe Steel Mass per Unit Length, m_steel_IP (kg  / m):** {m_steel_IP:.2f}")
+st.write(f"**Outer Pipe Steel Mass per Unit Length, m_steel_OP (kg  / m):** {m_steel_OP:.2f}")
+st.write(f"**Total Steel Mass per Unit Length, m_steel_total (kg  / m):** {m_steel_total:.2f}")
+st.write(f"**Insulation Mass per Unit Length, m_ins (kg  / m):** {m_ins:.2f}")
+st.write(f"**Anti-Corrosion Coating Mass per Unit Length, m_corr (kg  / m):** {m_corr:.2f}")
+st.write(f"**Centraliser Mass per Unit Length, m_centraliser (kg  / m):** {m_centraliser:.2f}")
+st.write(f"**Inner Pipe Content Mass per Unit Length- Operation, m_IPC_oper (kg  / m):** {m_IPC_oper:.2f}")
+st.write(f"**Inner Pipe Content Mass per Unit Length- Sea Water, m_IPC_SW (kg  / m):** {m_IPC_SW:.2f}")
+st.write(f"**Buoyant Mass per Unit Length, m_buoyant (kg  / m):** {m_buoyant:.2f}")
+st.write(f"**Submerged mass per Unit Length- Empty, w_sub_empty (kg  / m):** {m_sub_empty:.2f}")
+st.write(f"**Submerged mass per Unit Length- Operation, w_sub_oper (kg  / m):** {m_sub_oper:.2f}")
+st.write(f"**Submerged mass per Unit Length- Sea Water, w_sub_SW (kg  / m):** {m_sub_SW:.2f}")
+st.write(f"**Submerged Weight per Unit Length- Empty, w_sub_empty (N / m):** {w_sub_empty:.2f}")
+st.write(f"**Submerged Weight per Unit Length- Operation, w_sub_oper (N / m):** {w_sub_oper:.2f}")
+st.write(f"**Submerged Weight per Unit Length- Sea Water, w_sub_SW (N / m):** {w_sub_SW:.2f}")
+
+# Moment of Inertia and Stiffness Calculation
+I_IP = (math.pi / 64) * (OD_IP**4 - ID_IP**4)
+I_OP = (math.pi / 64) * (OD_OP**4 - ID_OP**4)
+I_PIP = I_IP + I_OP
+EA_PIP = E_IP * A_in / 1e3 + E_OP * A_out / 1e3
+if PIP_BS-method == "Sum":  
+    EI_IP = E_IP * I_IP / 1e6  
+    EI_OP = E_OP * I_OP / 1e6  
+    EI_PIP = EI_IP + EI_OP
+else:
+    EIy_PIP = E_OP * I_OP / 1e6
+st.write(f"**Inner Pipe Moment of Inertia, I_IP (mm⁴):** {I_IP:.2f}")
+st.write(f"**Outer Pipe Moment of Inertia, I_OP (mm⁴):** {I_OP:.2f}")
+st.write(f"**Total Moment of Inertia, I_PIP (mm⁴):** {I_PIP:.2f}")
+st.write(f"**Total Equivalent Bending Stiffness, EI_PIP (kN·m²):** {EIy_PIP:.2f}")
+st.write(f"**Total Axial Stiffness, EA_PIP (kN):** {EA_PIP:.2f}")
 
 st.title("Temperature")
 col1, col2 = st.columns(2)

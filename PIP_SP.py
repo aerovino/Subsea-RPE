@@ -62,7 +62,7 @@ with col1:
     SD_IP = st.number_input("Inner Pipe Steel Density, SD_IP (kg/m³)", value=7850.0, min_value=0.0, step=1.0, format="%.2f")
     CD_IP = st.number_input("Inner Pipe Content Density, CD_IP (kg/m³)", value=835.0, min_value=0.0, step=1.0, format="%.2f")
     ID = st.number_input("Insulation Density, ID (kg/m³)", value=160.0, min_value=0.0, step=1.0, format="%.2f")
-    PIP_BS-method = st.selectbox("PIP Bending Stiffness Method", ("Sum", "Carrier"), index=0)
+    PIP_BS_method = st.selectbox("PIP Bending Stiffness Method", ("Sum", "Carrier"), index=0)
 with col2:
     SD_OP = st.number_input("Outer Pipe Steel Density, SD_OP (kg/m³)", value=7850.0, min_value=0.0, step=1.0, format="%.2f")
     SWD = st.number_input("Sea Water Density, SWD (kg/m³)", value=1025.0, min_value=0.0, step=1.0, format="%.2f")
@@ -106,7 +106,7 @@ I_IP = (math.pi / 64) * (OD_IP**4 - ID_IP**4)
 I_OP = (math.pi / 64) * (OD_OP**4 - ID_OP**4)
 I_PIP = I_IP + I_OP
 EA_PIP = E_IP * A_in / 1e3 + E_OP * A_out / 1e3
-if PIP_BS-method == "Sum":  
+if PIP_BS_method == "Sum":  
     EI_IP = E_IP * I_IP / 1e6  
     EI_OP = E_OP * I_OP / 1e6  
     EI_PIP = EI_IP + EI_OP

@@ -36,12 +36,12 @@ A_fluid = math.pi / 4 * ID_IP**2
 st.write(f"**Inner Pipe Inner Diameter, ID_IP (mm):** {ID_IP:.2f}")
 st.write(f"**Outer Pipe Inner Diameter, ID_OP (mm):** {ID_OP:.2f}")
 st.write(f"**Overall Outer Diameter, OD_overall (mm):** {OD_overall:.2f}")
-st.write(f"**Inner Pipe Cross-sectional Area, A_in (m²):** {A_in:.6f}")
-st.write(f"**Outer Pipe Cross-sectional Area, A_out (m²):** {A_out:.6f}")
-st.write(f"**Steel Cross-sectional Area, A_steel (m²):** {A_steel:.6f}")
-st.write(f"**Insulation Cross-sectional Area, A_ins (m²):** {A_ins:.6f}")
-st.write(f"**Anti-Corrosion Coating Cross-sectional Area, A_corr (m²):** {A_corr:.6f}")
-st.write(f"**Fluid Cross-sectional Area, A_fluid (m²):** {A_fluid:.6f}")
+st.write(f"**Inner Pipe Cross-sectional Area, A_in (mm²):** {A_in:.6f}")
+st.write(f"**Outer Pipe Cross-sectional Area, A_out (mm²):** {A_out:.6f}")
+st.write(f"**Steel Cross-sectional Area, A_steel (mm²):** {A_steel:.6f}")
+st.write(f"**Insulation Cross-sectional Area, A_ins (mm²):** {A_ins:.6f}")
+st.write(f"**Anti-Corrosion Coating Cross-sectional Area, A_corr (mm²):** {A_corr:.6f}")
+st.write(f"**Fluid Cross-sectional Area, A_fluid (mm²):** {A_fluid:.6f}")
 
 st.title("Material Properties")
 col1, col2 = st.columns(2)
@@ -103,3 +103,4 @@ with col2:
     H_eq = st.number_input("Equivalent Residual Tension, H_eq (kN)", value=0.0, min_value=0.0, step=0.1, format="%.2f")
     P_eq_oper = st.number_input("Equivalent Pressure- Operation, P_eq_oper (MPa)", value=28.9, min_value=0.0, step=0.1, format="%.2f")
     P_eq_st = st.number_input("Equivalent Pressure- System Test, P_eq_st (MPa)", value=33.24, min_value=0.0, step=0.1, format="%.2f")
+

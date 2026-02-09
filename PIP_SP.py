@@ -115,7 +115,7 @@ else:
 st.write(f"**Inner Pipe Moment of Inertia, I_IP (mm⁴):** {I_IP:.2f}")
 st.write(f"**Outer Pipe Moment of Inertia, I_OP (mm⁴):** {I_OP:.2f}")
 st.write(f"**Total Moment of Inertia, I_PIP (mm⁴):** {I_PIP:.2f}")
-st.write(f"**Total Equivalent Bending Stiffness, EI_PIP (kN·m²):** {EIy_PIP:.2f}")
+st.write(f"**Total Equivalent Bending Stiffness, EI_PIP (kN·m²):** {EI_PIP:.2f}")
 st.write(f"**Total Axial Stiffness, EA_PIP (kN):** {EA_PIP:.2f}")
 
 st.title("Temperature")

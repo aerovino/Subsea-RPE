@@ -111,7 +111,7 @@ if PIP_BS_method == "Sum":
     EI_OP = E_OP * I_OP / 1e6  
     EI_PIP = EI_IP + EI_OP
 else:
-    EIy_PIP = E_OP * I_OP / 1e6
+    EI_PIP = E_OP * I_OP / 1e6
 st.write(f"**Inner Pipe Moment of Inertia, I_IP (mm⁴):** {I_IP:.2f}")
 st.write(f"**Outer Pipe Moment of Inertia, I_OP (mm⁴):** {I_OP:.2f}")
 st.write(f"**Total Moment of Inertia, I_PIP (mm⁴):** {I_PIP:.2f}")
@@ -163,3 +163,24 @@ with col2:
     H_eq = st.number_input("Equivalent Residual Tension, H_eq (kN)", value=0.0, min_value=0.0, step=0.1, format="%.2f")
     P_eq_oper = st.number_input("Equivalent Pressure- Operation, P_eq_oper (MPa)", value=28.9, min_value=0.0, step=0.1, format="%.2f")
     P_eq_st = st.number_input("Equivalent Pressure- System Test, P_eq_st (MPa)", value=33.24, min_value=0.0, step=0.1, format="%.2f")
+
+# Equivalent Single Pipe Geometric Properties Calculation
+OD_eq = (8 * EI_PIP * 10e6 / EA_PIP + 2 * EA_PIP / (E_eq * math.pi) )**0.5
+WT_eq = 0.5 * (OD_eq - (8 * EI_PIP * 1e6 / EA_PIP - 2 * EA_PIP / (E_eq * math.pi))**0.5)
+WT_corr_eq = (OD_overall-OD_eq) / 2
+D_steel_eq = m_steel_total / (math.pi / 4 * (OD_eq**2 - (OD_eq - 2 * WT_eq)**2)) * 1e6
+D_corr_eq = (m_ins+m_corr+m_centraliser) / (math.pi / 4 * ( OD_overall**2 - OD_eq**2 )) * 1e6
+CD_eq_oper = m_IPC_oper / (math.pi / 4 * (OD_eq - 2 * WT_eq)**2)* 1e6
+CD_eq_SW = m_IPC_SW / (math.pi / 4 * (OD_eq - 2 * WT_eq)**2)* 1e6
+T_eq_oper = Ta_min + 1 / (E_eq * math.pi / 4 * (OD_eq**2 - (OD_eq - 2 * WT_eq)**2) * a_eq * 1e-5) * (H_eq - (P_eq_oper - P_IP_as_laid) * ( 1 - 2 * nu_eq ) * math.pi / 4 * (OD_eq - 2 * WT_eq)**2 / 1000 - EAF_PIP_oper)
+T_eq_SW = Ta_min + 1 / (E_eq * math.pi / 4 * (OD_eq**2 - (OD_eq - 2 * WT_eq)**2) * a_eq * 1e-5) * (H_eq - (P_eq_st - P_IP_as_laid) * ( 1 - 2 * nu_eq ) * math.pi / 4 * (OD_eq - 2 * WT_eq)**2 / 1000 - EAF_PIP_st)
+
+st.write(f"**Equivalent Single Pipe Outer Diameter, OD_eq (mm):** {OD_eq:.2f}")
+st.write(f"**Equivalent Single Pipe Wall Thickness, WT_eq (mm):** {WT_eq:.2f}")
+st.write(f"**Equivalent Single Pipe Anti-Corrosion Coating Thickness, WT_corr_eq (mm):** {WT_corr_eq:.2f}")
+st.write(f"**Equivalent Single Pipe Steel Density, D_steel_eq (kg/m³):** {D_steel_eq:.2f}")
+st.write(f"**Equivalent Single Pipe Anti-Corrosion Coating Density, D_corr_eq (kg/m³):** {D_corr_eq:.2f}")
+st.write(f"**Equivalent Single Pipe Content Density- Operation, CD_eq_oper (kg/m³):** {CD_eq_oper:.2f}")
+st.write(f"**Equivalent Single Pipe Content Density- Sea Water, CD_eq_SW (kg/m³):** {CD_eq_SW:.2f}")
+st.write(f"**Equivalent Single Pipe Temperature- Operation, T_eq_oper (°C):** {T_eq_oper:.2f}")
+st.write(f"**Equivalent Single Pipe Temperature- Sea Water, T_eq_SW (°C):** {T_eq_SW:.2f}")

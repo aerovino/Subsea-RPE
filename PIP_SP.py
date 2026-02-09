@@ -2,6 +2,16 @@ import math
 import pandas as pd
 import streamlit as st
 
+HIDE_CODE = """
+<style>
+/* This may hide code blocks rendered by st.code */
+div[data-testid="stCode"] {display: none !important;}
+/* In case of details/expanders with code */
+details {display: none !important;}
+</style>
+"""
+st.markdown(HIDE_CODE, unsafe_allow_html=True)
+
 st.set_page_config(page_title="PIP to Single Pipe - Calculator", page_icon="Icon.png", layout="wide")
 
 st.title("PIP to Single Pipe - Calculator")
@@ -55,6 +65,16 @@ with col2:
     CD = st.number_input("Centraliser Density, CD (kg/m³)", value=0.0, min_value=0.0, step=1.0, format="%.2f")
 
 st.title("Temperature")
+col1, col2 = st.columns(2)
+with col1:
+    T_IP = st.number_input("Inner Pipe Temperature, T_IP (°C)", value=112.0, min_value=0.0, step=1.0, format="%.2f")
+    Ta_min = st.number_input("Minimum Ambient Temperature, Ta_min (°C)", value=4.0, min_value=0.0, step=1.0, format="%.2f")
+   
+with col2:
+    T_OP = st.number_input("Outer Pipe Temperature, T_OP (°C)", value=47.5, min_value=0.0, step=1.0, format="%.2f")
+    Ta_max = st.number_input("Maximum Ambient Temperature, Ta_max (°C)", value=10.0, min_value=0.0, step=1.0, format="%.2f")
+
+st.title("Pressure and Load")
 col1, col2 = st.columns(2)
 with col1:
     T_IP = st.number_input("Inner Pipe Temperature, T_IP (°C)", value=112.0, min_value=0.0, step=1.0, format="%.2f")

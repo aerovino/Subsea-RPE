@@ -140,8 +140,8 @@ with col2:
     H_out = st.number_input("Outer Pipe Residual Tension, H_out (kN)", value=0.0, min_value=0.0, step=0.1, format="%.2f")
 
 # Efffective Axial Force Calculation
-EAF_IP_oper = H_in - (P_IP_oper - P_IP_as_laid) * A_fluid * (1-2*nu_IP) / 1000 - A_in * E_IP * a_IP * (T_IP - Ta_min)
-EAF_IP_st = H_in - (P_IP_st - P_IP_as_laid) * A_fluid * (1-2*nu_IP) / 1000 - A_in * E_IP * a_IP * (Ta_max - Ta_min)
+EAF_IP_oper = H_in - (P_IP_oper - P_IP_as_laid) * A_fluid * (1-2*nu_IP*1e-5) / 1000 - A_in * E_IP * a_IP * (T_IP - Ta_min)
+EAF_IP_st = H_in - (P_IP_st - P_IP_as_laid) * A_fluid * (1-2*nu_IP*1e-5) / 1000 - A_in * E_IP * a_IP * (Ta_max - Ta_min)
 EAF_OP_oper = H_out - A_out * E_OP * a_OP * (T_OP - Ta_min)
 EAF_OP_st = H_out - A_out * E_OP * a_OP * (Ta_max - Ta_min)
 EAF_PIP_oper = EAF_IP_oper + EAF_OP_oper

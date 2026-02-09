@@ -165,7 +165,7 @@ with col2:
     P_eq_st = st.number_input("Equivalent Pressure- System Test, P_eq_st (MPa)", value=33.24, min_value=0.0, step=0.1, format="%.2f")
 
 # Equivalent Single Pipe Geometric Properties Calculation
-OD_eq = (8 * EI_PIP * 10e6 / EA_PIP + 2 * EA_PIP / (E_eq * math.pi) )**0.5
+OD_eq = (8 * EI_PIP * 1e6 / EA_PIP + 2 * EA_PIP / (E_eq * math.pi) )**0.5
 WT_eq = 0.5 * (OD_eq - (8 * EI_PIP * 1e6 / EA_PIP - 2 * EA_PIP / (E_eq * math.pi))**0.5)
 WT_corr_eq = (OD_overall-OD_eq) / 2
 D_steel_eq = m_steel_total / (math.pi / 4 * (OD_eq**2 - (OD_eq - 2 * WT_eq)**2)) * 1e6

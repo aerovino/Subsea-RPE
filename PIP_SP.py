@@ -67,19 +67,23 @@ with col2:
 st.title("Temperature")
 col1, col2 = st.columns(2)
 with col1:
-    T_IP = st.number_input("Inner Pipe Temperature, T_IP (°C)", value=112.0, min_value=0.0, step=1.0, format="%.2f")
-    Ta_min = st.number_input("Minimum Ambient Temperature, Ta_min (°C)", value=4.0, min_value=0.0, step=1.0, format="%.2f")
+    T_IP = st.number_input("Inner Pipe Temperature, T_IP (°C)", value=112.0, min_value=0.0, step=0.1, format="%.2f")
+    Ta_min = st.number_input("Minimum Ambient Temperature, Ta_min (°C)", value=4.0, min_value=0.0, step=0.1, format="%.2f")
    
 with col2:
-    T_OP = st.number_input("Outer Pipe Temperature, T_OP (°C)", value=47.5, min_value=0.0, step=1.0, format="%.2f")
-    Ta_max = st.number_input("Maximum Ambient Temperature, Ta_max (°C)", value=10.0, min_value=0.0, step=1.0, format="%.2f")
+    T_OP = st.number_input("Outer Pipe Temperature, T_OP (°C)", value=47.5, min_value=0.0, step=0.1, format="%.2f")
+    Ta_max = st.number_input("Maximum Ambient Temperature, Ta_max (°C)", value=10.0, min_value=0.0, step=0.1, format="%.2f")
 
 st.title("Pressure and Load")
 col1, col2 = st.columns(2)
 with col1:
-    T_IP = st.number_input("Inner Pipe Temperature, T_IP (°C)", value=112.0, min_value=0.0, step=1.0, format="%.2f")
-    Ta_min = st.number_input("Minimum Ambient Temperature, Ta_min (°C)", value=4.0, min_value=0.0, step=1.0, format="%.2f")
+    P_IP_as_laid = st.number_input("Inner Pipe Pressure- As Laid, P_IP_as_laid (MPa)", value=0.0, min_value=0.0, step=0.1, format="%.2f")
+    P_IP_oper = st.number_input("Inner Pipe Pressure- Operation, P_IP_oper (MPa)", value=32.5, min_value=0.0, step=0.1, format="%.2f")
+    P_IP_st = st.number_input("Inner Pipe Pressure- System Test, P_IP_st (MPa)", value=37.38, min_value=0.0, step=0.1, format="%.2f")
+    P_OP_ap = st.number_input("Outer Pipe Annulus Pressure, P_OP_ap (MPa)", value=0.0, min_value=0.0, step=0.1, format="%.2f")
    
 with col2:
-    T_OP = st.number_input("Outer Pipe Temperature, T_OP (°C)", value=47.5, min_value=0.0, step=1.0, format="%.2f")
-    Ta_max = st.number_input("Maximum Ambient Temperature, Ta_max (°C)", value=10.0, min_value=0.0, step=1.0, format="%.2f")
+    h_ref = st.number_input("Reference Elevation, h_ref (m)", value=40.0, min_value=0.0, step=0.1, format="%.2f")
+    H_in = st.number_input("Inner Pipe Residual Tension, H_in (kN)", value=0.0, min_value=0.0, step=0.1, format="%.2f")
+    H_out = st.number_input("Outer Pipe Residual Tension, H_out (kN)", value=0.0, min_value=0.0, step=0.1, format="%.2f")
+

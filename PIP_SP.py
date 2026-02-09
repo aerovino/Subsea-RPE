@@ -39,7 +39,7 @@ with col2:
     st.header("Outer Pipe")
     E_OP = st.number_input("Outer Pipe Young's Modulus, E_OP (GPa)", value=207.0, min_value=0.0, step=0.1, format="%.2f")
     nu_OP = st.number_input("Outer Pipe Poisson Ratio, nu_OP (-)", value=0.3, min_value=0.0, step=0.1, format="%.2f")
-    a_OP = st.number_input("Outer Pipe Thermal Expansion Coefficient, a_OP (10^-5/C)", value=1.170, min_value=0.0, step=.001, format="%.3f")
+    a_OP = st.number_input("Outer Pipe Thermal Expansion Coefficient, a_OP (10^-5/°C)", value=1.170, min_value=0.0, step=.001, format="%.3f")
 
 
 st.title("Density Parameters")
@@ -53,3 +53,13 @@ with col2:
     SD_OP = st.number_input("Outer Pipe Steel Density, SD_OP (kg/m³)", value=7850.0, min_value=0.0, step=1.0, format="%.2f")
     SWD = st.number_input("Sea Water Density, SWD (kg/m³)", value=1025.0, min_value=0.0, step=1.0, format="%.2f")
     CD = st.number_input("Centraliser Density, CD (kg/m³)", value=0.0, min_value=0.0, step=1.0, format="%.2f")
+
+st.title("Temperature")
+col1, col2 = st.columns(2)
+with col1:
+    T_IP = st.number_input("Inner Pipe Temperature, T_IP (°C)", value=112.0, min_value=0.0, step=1.0, format="%.2f")
+    Ta_min = st.number_input("Minimum Ambient Temperature, Ta_min (°C)", value=4.0, min_value=0.0, step=1.0, format="%.2f")
+   
+with col2:
+    T_OP = st.number_input("Outer Pipe Temperature, T_OP (°C)", value=47.5, min_value=0.0, step=1.0, format="%.2f")
+    Ta_max = st.number_input("Maximum Ambient Temperature, Ta_max (°C)", value=10.0, min_value=0.0, step=1.0, format="%.2f")

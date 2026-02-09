@@ -105,7 +105,7 @@ st.write(f"**Submerged Weight per Unit Length- Sea Water, w_sub_SW (N / m):** {w
 I_IP = (math.pi / 64) * (OD_IP**4 - ID_IP**4)
 I_OP = (math.pi / 64) * (OD_OP**4 - ID_OP**4)
 I_PIP = I_IP + I_OP
-EA_PIP = E_IP * A_in / 1e6 + E_OP * A_out / 1e6
+EA_PIP = E_IP * A_in + E_OP * A_out
 if PIP_BS_method == "Sum":  
     EI_IP = E_IP * I_IP / 1e6  
     EI_OP = E_OP * I_OP / 1e6  

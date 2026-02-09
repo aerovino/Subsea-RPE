@@ -59,7 +59,7 @@ with col2:
 st.title("Density Parameters")
 col1, col2 = st.columns(2)
 with col1:
-    SD_IP = st.number_input("Inner Pipe Steel Density, SD_IP (kg/m³)", value=7850.0, min_value=0.0, step=1.0, format="%.2f")
+    SD_IP = st.number_input("Inner Pipe Steel Density, SD_IP (kg/m³)", value=7800.0, min_value=0.0, step=1.0, format="%.2f")
     CD_IP = st.number_input("Inner Pipe Content Density, CD_IP (kg/m³)", value=835.0, min_value=0.0, step=1.0, format="%.2f")
     ID = st.number_input("Insulation Density, ID (kg/m³)", value=160.0, min_value=0.0, step=1.0, format="%.2f")
     PIP_BS_method = st.selectbox("PIP Bending Stiffness Method", ("Sum", "Carrier"), index=0)
